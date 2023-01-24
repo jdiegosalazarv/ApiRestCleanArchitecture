@@ -9,6 +9,8 @@ public class SubjectDTO {
     private Long id;
     private String name;
 
+    public SubjectDTO() {
+    }
 
     public SubjectDTO(Long id, String name) {
         this.id = id;
