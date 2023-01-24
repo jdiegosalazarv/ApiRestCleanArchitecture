@@ -1,4 +1,4 @@
-package co.com.ias.apirestcleanarchitecture.infrastructure.entrypoint.Student;
+package co.com.ias.apirestcleanarchitecture.infrastructure.entrypoint.student;
 
 import co.com.ias.apirestcleanarchitecture.domain.model.student.dto.StudentDTO;
 import co.com.ias.apirestcleanarchitecture.domain.usecase.student.StudentUseCase;
