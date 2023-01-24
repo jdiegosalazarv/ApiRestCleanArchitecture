@@ -23,8 +23,8 @@ public class StudentDBO {
 
     private String phone;
     private String email;
-//    @Column(name = "subject_id")
-//    private Integer subjectId;
+    @Column(name = "subject_id")
+    private Integer subjectId;
 
     public Student toDomain(StudentDBO studentDBO){
         return new Student(
@@ -35,13 +35,13 @@ public class StudentDBO {
         );
     }
 
-    public StudentDBO fromDomain(Student student){
+    public StudentDBO fromDomain(Student student, Integer subjectId){
         return new StudentDBO(
                 student.getId().getValue(),
                 student.getName().getValue(),
                 student.getPhone().getValue(),
-                student.getEmail().getValue()
-//                subjectId
+                student.getEmail().getValue(),
+                subjectId
         );
     }
 }

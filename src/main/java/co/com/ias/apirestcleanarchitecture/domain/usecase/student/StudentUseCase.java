@@ -19,9 +19,10 @@ public class StudentUseCase {
     public StudentDTO saveStudent(StudentDTO studentDTO){
         //Convertir a Student
         Student student = studentDTO.toDomain(studentDTO);
+        Integer subjectId = studentDTO.getSubjectId();
 
         //Convertir a StudentDTO
-        return studentDTO.fromDomain(this.iStudentRepository.saveStudent(student));
+        return studentDTO.fromDomain(this.iStudentRepository.saveStudent(student, subjectId));
     }
 
     public ArrayList<StudentDTO> getStudents(){

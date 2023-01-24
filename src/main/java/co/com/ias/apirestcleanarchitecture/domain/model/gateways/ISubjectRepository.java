@@ -9,4 +9,6 @@ public interface ISubjectRepository {
     Subject saveSubject(Subject subject);
 
     List<Subject> getSubjects();
+
+    Subject findSubjectById(Long id);
 }

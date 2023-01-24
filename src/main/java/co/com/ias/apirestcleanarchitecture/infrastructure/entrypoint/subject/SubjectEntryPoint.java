@@ -23,4 +23,13 @@ public class SubjectEntryPoint {
     public List<SubjectDTO> getSubjects(){
         return this.subjectUseCase.getSubjects();
     }
+
+    @GetMapping("/{id}")
+    public SubjectDTO findSubjectById(@PathVariable Long id){
+        SubjectDTO subjectDTO =this.subjectUseCase.findSubjectbById(id);
+        if (subjectDTO != null){
+            return this.subjectUseCase.findSubjectbById(id);
+        }
+        return null;
+    }
 }

@@ -19,9 +19,9 @@ public class StudentRepositoryAdapter implements IStudentRepository {
     }
 
     @Override
-    public Student saveStudent(Student student) {
+    public Student saveStudent(Student student, Integer subjectId) {
         //Convertir en DBO
-        StudentDBO studentDBO = new StudentDBO().fromDomain(student);
+        StudentDBO studentDBO = new StudentDBO().fromDomain(student, subjectId);
 
         //Convertir en Student
         return studentDBO.toDomain(this.iStudentAdapterRepository.save(studentDBO));

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IStudentRepository {
 
-    Student saveStudent(Student student);
+    Student saveStudent(Student student, Integer subjectID);
 
     List<Student> getStudents();
 

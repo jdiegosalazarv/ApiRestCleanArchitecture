@@ -6,6 +6,7 @@ import co.com.ias.apirestcleanarchitecture.infrastructure.adapters.jpa.entity.Su
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -32,5 +33,14 @@ public class SubjectRepositoryAdapter implements ISubjectRepository {
         SubjectDBO subjectDBO = new SubjectDBO();
 
         return subjects.stream().map(sub -> subjectDBO.toDomain(sub)).collect(Collectors.toList());
+    }
+
+    @Override
+    public Subject findSubjectById(Long id) {
+        Optional<SubjectDBO> subjectDBO = this.iSubjectAdapterRepository.findById(id);
+        if(subjectDBO.isPresent()){
+            return SubjectDBO.toDomain(subjectDBO.get());
+        }
+        return null;
     }
 }
