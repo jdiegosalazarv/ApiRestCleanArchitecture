@@ -9,7 +9,7 @@ public class StudentDTO {
     private String phone;
     private String email;
 
-//    private Integer SubjectId;
+    private Integer SubjectId;
 
 
     public StudentDTO() {
@@ -20,7 +20,14 @@ public class StudentDTO {
         this.name = name;
         this.phone = phone;
         this.email = email;
-//        SubjectId = subjectId;
+    }
+
+    public StudentDTO(Long id, String name, String phone, String email, Integer subjectId) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        SubjectId = subjectId;
     }
 
     public Long getId() {
@@ -55,15 +62,15 @@ public class StudentDTO {
         this.email = email;
     }
 
-//    public Integer getSubjectId() {
-//        return SubjectId;
-//    }
-//
-//    public void setSubjectId(Integer subjectId) {
-//        SubjectId = subjectId;
-//    }
+    public Integer getSubjectId() {
+        return SubjectId;
+    }
 
-    public StudentDTO fromDomain(Student student){
+    public void setSubjectId(Integer subjectId) {
+        SubjectId = subjectId;
+    }
+
+    public static StudentDTO fromDomain(Student student){
         return new StudentDTO(
                 student.getId().getValue(),
                 student.getName().getValue(),

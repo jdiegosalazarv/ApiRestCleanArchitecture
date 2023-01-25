@@ -23,14 +23,14 @@ public class SubjectDBO {
     private Long id;
     private String name;
 
-    public Subject toDomain(SubjectDBO subjectDBO){
+    public static Subject toDomain(SubjectDBO subjectDBO){
         return new Subject(
                 new SubjectId(subjectDBO.getId()),
                 new SubjectName(subjectDBO.getName())
         );
     }
 
-    public SubjectDBO fromDomain(Subject subject){
+    public static SubjectDBO fromDomain(Subject subject){
         return new SubjectDBO(
                 subject.getId().getValue(),
                 subject.getName().getValue()

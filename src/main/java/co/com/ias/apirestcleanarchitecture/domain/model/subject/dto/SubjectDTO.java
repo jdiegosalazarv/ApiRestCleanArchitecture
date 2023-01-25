@@ -33,7 +33,7 @@ public class SubjectDTO {
         this.name = name;
     }
 
-    public SubjectDTO fromDomain(Subject subject){
+    public static SubjectDTO fromDomain(Subject subject){
         return new SubjectDTO(
                 subject.getId().getValue(),
                 subject.getName().getValue()
