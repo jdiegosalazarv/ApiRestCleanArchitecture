@@ -12,35 +12,31 @@ import java.util.stream.Collectors;
 @Repository
 public class SubjectRepositoryAdapter implements ISubjectRepository {
 
-    private final ISubjectAdapterRepository iSubjectAdapterRepository;
+    private final ISubjectRepositoryAdapter iSubjectAdapterRepository;
 
-    public SubjectRepositoryAdapter(ISubjectAdapterRepository iSubjectAdapterRepository) {
+    public SubjectRepositoryAdapter(ISubjectRepositoryAdapter iSubjectAdapterRepository) {
         this.iSubjectAdapterRepository = iSubjectAdapterRepository;
     }
 
     @Override
     public Subject saveSubject(Subject subject) {
         //Convertir en DBO
-        SubjectDBO subjectDBO = new SubjectDBO().fromDomain(subject);
+        SubjectDBO subjectDBO = SubjectDBO.fromDomain(subject);
 
         //convertir a Subject
-        return subjectDBO.toDomain(this.iSubjectAdapterRepository.save(subjectDBO));
+        return SubjectDBO.toDomain(this.iSubjectAdapterRepository.save(subjectDBO));
     }
 
     @Override
     public List<Subject> getSubjects() {
         List<SubjectDBO> subjects = this.iSubjectAdapterRepository.findAll();
-        SubjectDBO subjectDBO = new SubjectDBO();
 
-        return subjects.stream().map(sub -> subjectDBO.toDomain(sub)).collect(Collectors.toList());
+        return subjects.stream().map(SubjectDBO::toDomain).collect(Collectors.toList());
     }
 
     @Override
     public Subject findSubjectById(Long id) {
         Optional<SubjectDBO> subjectDBO = this.iSubjectAdapterRepository.findById(id);
-        if(subjectDBO.isPresent()){
-            return SubjectDBO.toDomain(subjectDBO.get());
-        }
-        return null;
+        return subjectDBO.map(SubjectDBO::toDomain).orElse(null);
     }
 }

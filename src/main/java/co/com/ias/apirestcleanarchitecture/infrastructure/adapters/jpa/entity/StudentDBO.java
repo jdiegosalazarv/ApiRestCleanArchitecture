@@ -1,10 +1,8 @@
 package co.com.ias.apirestcleanarchitecture.infrastructure.adapters.jpa.entity;
 
 import co.com.ias.apirestcleanarchitecture.domain.model.student.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import co.com.ias.apirestcleanarchitecture.domain.model.subject.Subject;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -14,6 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class StudentDBO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +22,18 @@ public class StudentDBO {
 
     private String phone;
     private String email;
-    @Column(name = "subject_id")
-    private Integer subjectId;
+    @ManyToOne
+    @JoinColumn(name = "subject_id", referencedColumnName = "id")
+    private SubjectDBO subject;
 
-    public Student toDomain(StudentDBO studentDBO){
+    public StudentDBO(Long id, String name, String phone, String email) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+    }
+
+    public static Student toDomain(StudentDBO studentDBO){
         return new Student(
                 new StudentId(studentDBO.getId()),
                 new StudentName(studentDBO.getName()),
@@ -35,13 +42,12 @@ public class StudentDBO {
         );
     }
 
-    public StudentDBO fromDomain(Student student, Integer subjectId){
+    public static StudentDBO fromDomain(Student student){
         return new StudentDBO(
                 student.getId().getValue(),
                 student.getName().getValue(),
                 student.getPhone().getValue(),
-                student.getEmail().getValue(),
-                subjectId
+                student.getEmail().getValue()
         );
     }
 }

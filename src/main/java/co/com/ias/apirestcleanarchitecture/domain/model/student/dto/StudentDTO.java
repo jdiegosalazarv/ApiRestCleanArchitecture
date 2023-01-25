@@ -70,7 +70,7 @@ public class StudentDTO {
         SubjectId = subjectId;
     }
 
-    public StudentDTO fromDomain(Student student){
+    public static StudentDTO fromDomain(Student student){
         return new StudentDTO(
                 student.getId().getValue(),
                 student.getName().getValue(),

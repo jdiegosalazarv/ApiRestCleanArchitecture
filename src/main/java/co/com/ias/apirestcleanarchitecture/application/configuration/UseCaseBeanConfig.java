@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class UseCaseBeanConfig {
     @Bean
-    public StudentUseCase studentUseCase(IStudentRepository iStudentRepository){
-        return new StudentUseCase(iStudentRepository);
+    public StudentUseCase studentUseCase(IStudentRepository iStudentRepository,ISubjectRepository iSubjectRepository){
+        return new StudentUseCase(iStudentRepository, iSubjectRepository);
     }
 
     @Bean
