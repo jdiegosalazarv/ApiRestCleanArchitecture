@@ -17,11 +17,18 @@ public class StudentEntryPoint {
 
     @PostMapping
     public ResponseEntity<?> saveStudent(@RequestBody StudentDTO studentDTO){
-        StudentDTO student = this.studentUseCase.saveStudent(studentDTO);
-        if(student != null){
-            return ResponseEntity.status(201).body(student);
+        try{
+            StudentDTO student = this.studentUseCase.saveStudent(studentDTO);
+            if(student != null){
+                return ResponseEntity.status(201).body(student);
+            }
+            return ResponseEntity.status(412).body("No existe materia con ese id");
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(400).body(e.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.status(400).body("Todos los campos son obligatorios");
         }
-        return ResponseEntity.status(412).body("No existe materia con ese id");
+
     }
 
     @GetMapping
