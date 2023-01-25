@@ -17,7 +17,14 @@ public class SubjectEntryPoint {
 
     @PostMapping
     public ResponseEntity<?> saveSubject(@RequestBody SubjectDTO subjectDTO){
-        return ResponseEntity.status(201).body(this.subjectUseCase.saveSubject(subjectDTO));
+        try{
+            return ResponseEntity.status(201).body(this.subjectUseCase.saveSubject(subjectDTO));
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(400).body(e.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.status(400).body("Todos los campos son obligatorios");
+        }
+
     }
 
     @GetMapping
