@@ -21,7 +21,7 @@ public class SubjectEntryPoint {
             return ResponseEntity.status(201).body(this.subjectUseCase.saveSubject(subjectDTO));
         }catch (IllegalArgumentException e){
             return ResponseEntity.status(400).body(e.getMessage());
-        }catch (Exception e){
+        }catch (NullPointerException e){
             return ResponseEntity.status(400).body("Todos los campos son obligatorios");
         }
 
@@ -38,10 +38,12 @@ public class SubjectEntryPoint {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findSubjectById(@PathVariable Long id){
-        SubjectDTO subjectDTO =this.subjectUseCase.findSubjectbById(id);
-        if (subjectDTO != null){
-            return ResponseEntity.status(200).body(this.subjectUseCase.findSubjectbById(id));
+        try{
+            SubjectDTO subjectDTO =this.subjectUseCase.findSubjectbById(id);
+            return ResponseEntity.status(200).body(subjectDTO);
+        }catch (NullPointerException e){
+            return ResponseEntity.status(406).body(e.getMessage());
         }
-        return ResponseEntity.status(406).body("No existe materia con ese Id");
+
     }
 }

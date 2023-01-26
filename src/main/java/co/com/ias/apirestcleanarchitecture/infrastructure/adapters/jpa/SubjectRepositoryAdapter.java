@@ -37,6 +37,9 @@ public class SubjectRepositoryAdapter implements ISubjectRepository {
     @Override
     public Subject findSubjectById(Long id) {
         Optional<SubjectDBO> subjectDBO = this.iSubjectAdapterRepository.findById(id);
+        if(subjectDBO.isEmpty()){
+            throw new NullPointerException("No existe materia con el id: " + id);
+        }
         return subjectDBO.map(SubjectDBO::toDomain).orElse(null);
     }
 }

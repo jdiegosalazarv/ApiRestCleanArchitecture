@@ -1,5 +1,7 @@
 package co.com.ias.apirestcleanarchitecture.domain.model.subject;
 
+import org.springframework.util.Assert;
+
 public class SubjectName {
 
     private final String value;

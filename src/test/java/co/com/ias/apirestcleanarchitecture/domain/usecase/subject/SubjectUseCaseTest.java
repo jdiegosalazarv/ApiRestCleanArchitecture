@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,6 +22,7 @@ class SubjectUseCaseTest {
     private SubjectUseCase subjectUseCase;
     @Mock
     private ISubjectRepository iSubjectRepository;
+
 
     @Test
     void saveSubject() {
@@ -40,8 +42,13 @@ class SubjectUseCaseTest {
     @Test
     void getSubjects() {
         //Arrange
-        List<SubjectDTO> list = new ArrayList<>();
-        List<Subject> subjects = new ArrayList<>();
+        SubjectDTO subject1 = new SubjectDTO(1L, "ingles");
+        SubjectDTO subject2 = new SubjectDTO(2L, "matematicas");
+        SubjectDTO subject3 = new SubjectDTO(3L, "Sociales");
+        List<SubjectDTO> list = Arrays.asList(subject1,subject2,subject3);
+
+
+        List<Subject> subjects = Arrays.asList(subject1.toDomain(subject1), subject2.toDomain(subject2), subject3.toDomain(subject3));
 
         //Actions
         when(this.iSubjectRepository.getSubjects()).thenReturn(subjects);
@@ -49,6 +56,8 @@ class SubjectUseCaseTest {
 
         //Asserts
         assertSame(list.size(), answer.size());
+        assertNotNull(answer);
+        assertSame(list.get(0).getName(), answer.get(0).getName());
     }
 
     @Test

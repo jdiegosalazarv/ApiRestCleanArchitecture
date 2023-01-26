@@ -31,9 +31,6 @@ public class SubjectUseCase {
 
     public SubjectDTO findSubjectbById(Long id){
         Subject subject = this.iSubjectRepository.findSubjectById(id);
-        if(subject != null){
-            return SubjectDTO.fromDomain(subject);
-        }
-        return null;
+        return SubjectDTO.fromDomain(subject);
     }
 }
