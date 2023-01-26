@@ -23,7 +23,6 @@ public class StudentEntryPoint {
         }catch (IllegalArgumentException | NullPointerException e){
             return ResponseEntity.status(400).body(e.getMessage());
         }
-
     }
 
     @GetMapping
@@ -41,7 +40,7 @@ public class StudentEntryPoint {
             StudentDTO studentDTO = this.studentUseCase.findStudentById(id);
             return ResponseEntity.status(200).body(studentDTO);
         }catch (NullPointerException e){
-            return ResponseEntity.status(412).body("No existe estudiante con ese Id");
+            return ResponseEntity.status(412).body(e.getMessage());
         }
     }
 
