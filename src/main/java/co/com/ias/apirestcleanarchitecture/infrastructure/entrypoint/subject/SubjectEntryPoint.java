@@ -19,10 +19,8 @@ public class SubjectEntryPoint {
     public ResponseEntity<?> saveSubject(@RequestBody SubjectDTO subjectDTO){
         try{
             return ResponseEntity.status(201).body(this.subjectUseCase.saveSubject(subjectDTO));
-        }catch (IllegalArgumentException e){
-            return ResponseEntity.status(400).body(e.getMessage());
-        }catch (NullPointerException e){
-            return ResponseEntity.status(400).body("Todos los campos son obligatorios");
+        }catch (IllegalArgumentException | NullPointerException e){
+            return ResponseEntity.status(500).body(e.getMessage());
         }
 
     }
