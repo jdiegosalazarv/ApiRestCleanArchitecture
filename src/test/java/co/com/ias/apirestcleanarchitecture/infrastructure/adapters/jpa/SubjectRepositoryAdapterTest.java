@@ -6,6 +6,7 @@ import co.com.ias.apirestcleanarchitecture.domain.model.subject.SubjectName;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -50,5 +51,13 @@ class SubjectRepositoryAdapterTest {
 
     @Test
     void findSubjectById() {
+        Subject subject = new Subject(new SubjectId(1L), new SubjectName("Ingles"));
+
+//        Subject answer = this.subjectRepositoryAdapter.findSubjectById(subject.getId().getValue());
+
+        assertThrows(NullPointerException.class,() ->{
+            this.subjectRepositoryAdapter.findSubjectById(subject.getId().getValue());
+        });
+
     }
 }
