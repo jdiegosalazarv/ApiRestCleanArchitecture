@@ -1,13 +1,17 @@
 package co.com.ias.apirestcleanarchitecture.domain.model.student;
 
+import java.util.regex.Pattern;
+
+import static org.springframework.util.Assert.isTrue;
+import static org.springframework.util.Assert.notNull;
+
 public class StudentPhone {
 
     private final String value;
 
     public StudentPhone(String value) {
-        if(value.isEmpty()){
-            throw new IllegalArgumentException("El campo Phone no puede estar vacío");
-        }
+        notNull(value, "El campo teléfono es requerido");
+        isTrue(Pattern.matches("^[0-9]+$", value), "El campo teléfono solo acepta números");
         this.value = value;
     }
 

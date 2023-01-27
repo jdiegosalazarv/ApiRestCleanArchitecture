@@ -40,6 +40,9 @@ public class StudentRepositoryAdapter implements IStudentRepository {
     @Override
     public Student findStudentById(Long id) {
         Optional<StudentDBO> studentDBO = this.iStudentAdapterRepository.findById(id);
+        if(studentDBO.isEmpty()){
+            throw new NullPointerException("No existe estudiante con id: " + id);
+        }
         return studentDBO.map(StudentDBO::toDomain).orElse(null);
     }
 

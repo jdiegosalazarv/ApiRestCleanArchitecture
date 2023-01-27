@@ -21,19 +21,16 @@ public class SubjectUseCase {
         Subject subject = subjectDTO.toDomain(subjectDTO);
 
         //Convertir a SubjectDTO
-        return subjectDTO.fromDomain(this.iSubjectRepository.saveSubject(subject));
+        return SubjectDTO.fromDomain(this.iSubjectRepository.saveSubject(subject));
     }
 
     public ArrayList<SubjectDTO> getSubjects(){
         List<Subject> subjects = this.iSubjectRepository.getSubjects();
-        return (ArrayList<SubjectDTO>) subjects.stream().map(sub -> SubjectDTO.fromDomain(sub)).collect(Collectors.toList());
+        return (ArrayList<SubjectDTO>) subjects.stream().map(SubjectDTO::fromDomain).collect(Collectors.toList());
     }
 
     public SubjectDTO findSubjectbById(Long id){
         Subject subject = this.iSubjectRepository.findSubjectById(id);
-        if(subject != null){
-            return SubjectDTO.fromDomain(subject);
-        }
-        return null;
+        return SubjectDTO.fromDomain(subject);
     }
 }

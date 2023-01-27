@@ -19,16 +19,10 @@ public class StudentEntryPoint {
     public ResponseEntity<?> saveStudent(@RequestBody StudentDTO studentDTO){
         try{
             StudentDTO student = this.studentUseCase.saveStudent(studentDTO);
-            if(student != null){
-                return ResponseEntity.status(201).body(student);
-            }
-            return ResponseEntity.status(412).body("No existe materia con ese id");
-        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(201).body(student);
+        }catch (IllegalArgumentException | NullPointerException e){
             return ResponseEntity.status(400).body(e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(400).body("Todos los campos son obligatorios");
         }
-
     }
 
     @GetMapping
@@ -42,11 +36,12 @@ public class StudentEntryPoint {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findStudentById(@PathVariable Long id){
-        StudentDTO studentDTO = this.studentUseCase.findStudentById(id);
-        if(studentDTO != null){
+        try{
+            StudentDTO studentDTO = this.studentUseCase.findStudentById(id);
             return ResponseEntity.status(200).body(studentDTO);
+        }catch (NullPointerException e){
+            return ResponseEntity.status(412).body(e.getMessage());
         }
-        return ResponseEntity.status(412).body("No existe estudiante con ese Id");
     }
 
     @GetMapping("/subject/{id}")

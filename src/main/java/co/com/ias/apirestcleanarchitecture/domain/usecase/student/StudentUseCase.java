@@ -23,11 +23,8 @@ public class StudentUseCase {
 
     public StudentDTO saveStudent(StudentDTO studentDTO){
         Subject subject = this.iSubjectRepository.findSubjectById(studentDTO.getSubjectId().longValue());
-        if(subject != null){
-            Student student = studentDTO.toDomain(studentDTO);
-            return StudentDTO.fromDomain(this.iStudentRepository.saveStudent(student, subject));
-        }
-        return null;
+        Student student = studentDTO.toDomain(studentDTO);
+        return StudentDTO.fromDomain(this.iStudentRepository.saveStudent(student, subject));
     }
 
     public ArrayList<StudentDTO> getStudents(){
@@ -37,10 +34,7 @@ public class StudentUseCase {
 
     public StudentDTO findStudentById(Long id){
         Student student = this.iStudentRepository.findStudentById(id);
-        if(student != null){
-            return StudentDTO.fromDomain(student);
-        }
-        return null;
+        return StudentDTO.fromDomain(student);
     }
 
     public ArrayList<StudentDTO> findStudentsBySubjectId(Long id){
